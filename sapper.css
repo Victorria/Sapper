@@ -1,0 +1,109 @@
+
+body {
+	font-family: 'Caesar Dressing';
+}
+
+.wrapper {
+	margin: 0 auto;
+    width: 260px;
+    overflow: hidden;
+}
+
+.minefield ul li{
+	width: 24px;
+	height: 24px;
+	display: block;
+	background-image: url(../img/closed.png);
+	float: left;
+	border: solid 1px #777;
+ }
+ 
+ .minefield {
+	border: 1px solid blue;
+	padding: 40px;
+	overflow: hidden;
+ }
+ 
+ .minefield ul {
+	 /*margin: 0 auto;*/
+	 padding: 0;
+	 margin: 0;
+	 overflow: hidden;
+	 /*width: 260px;*/
+ }
+ .minefield ul li.neighbor-0 {
+	 background-image: url(../img/0.png);
+ }
+ 
+ .minefield ul li.neighbor-1 {
+	 background-image: url(../img/1.png);
+ }
+ 
+ .minefield ul li.neighbor-2 {
+	 background-image: url(../img/2.png);
+ }
+ 
+ .minefield ul li.neighbor-3 {
+	 background-image: url(../img/3.png);
+ }
+ 
+ .minefield ul li.neighbor-4 {
+	 background-image: url(../img/4.png);
+ }
+ 
+ .minefield ul li.neighbor-5 {
+	 background-image: url(../img/5.png);
+ }
+ 
+ .minefield ul li.neighbor-6 {
+	 background-image: url(../img/6.png);
+ }
+ 
+ .minefield ul li.neighbor-7 {
+	 background-image: url(../img/7.png);
+ }
+ 
+ .minefield ul li.neighbor-8 {
+	 background-image: url(../img/8.png);
+ }
+ 
+ .minefield ul li.gameover {
+	 background-image: url(../img/end.png);
+ }
+ 
+ .minefield ul li.mine {
+	 background-image: url(../img/b.png);
+ }
+ 
+ .minefield ul li.flagged {
+	 background-image: url(../img/f.png);
+ }
+ 
+ 
+ 
+ .menu input{
+	 margin: 0 auto;
+	 display:block;
+	 text-align: center;
+	 height: 30px;
+	 border: solid 2px #777;
+ }
+ 
+ .menu {
+	 /*margin: 0 auto;*/
+	 /*width: 256px;*/
+	 height: 50px;
+	 background-color: red;
+	 display: flex;
+	 align-items: center;
+ }
+ 
+ .settings {
+	 border: solid 1px green;
+ }
+ 
+ #info {
+	border: solid 1px pink;
+ }
+ 
+ 
