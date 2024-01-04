@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/sapper.css">
+	<!--<link href='https://fonts.googleapis.com/css?family=Caesar+Dressing' rel='stylesheet' type='text/css'>-->
+  </head>
+  <body>
+	
+	<div class="minefield">
+		<div class="wrapper">
+			<div class="menu">
+				<input type="button" value="Restart" onclick="restart()">
+			</div>
+			<ul id="desk">
+			</ul>
+		</div>
+
+		
+		<div id="info">
+			<div class="settings">
+				<label><input id="sound" type="checkbox" value="value" checked>Sound: On
+				</label>
+			</div>
+			<div class="scores">
+				<p>John: 387 </p>
+				<p>Ivan: 524 </p>
+				<p>Jane: 629 </p>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	<script type='text/javascript' src='js/sapper.js'></script>
+	<script>
+		const checkbox = document.getElementById('sound');
+		checkbox.addEventListener('change', (event) => {
+			if (event.currentTarget.checked) {
+				window.localStorage.setItem("sound", true);				
+			} else {
+				window.localStorage.setItem("sound", false);
+			}
+		});
+		
+		function onContextMenu(e) {
+			e.preventDefault();
+			if (e.target.tagName == 'LI' && isFinished === false){
+				const el = e.target;
+				console.log(el.classList);
+				if (el.classList.length === 0){
+					el.className += "flagged";
+					console.log('ffffffffffffff');
+				} else if (el.classList.contains('flagged')){
+					el.classList.remove('flagged');
+				}
+				
+			}
+			
+		};
+		
+		document.addEventListener('contextmenu', onContextMenu, false);
+		document.addEventListener('click', e => {
+			console.log('clicked2233');
+			console.log(e);
+			if (e.target.tagName == 'LI' && isFinished === false && !e.target.classList.contains('flagged')){
+				const child = e.target;
+				const parent = child.parentNode;
+				const index = Array.prototype.indexOf.call(parent.children,child);
+				console.log(index);
+				
+				
+				const x = Math.floor(index/cols);
+				const y = index%cols;
+				if (initArray[x][y]===true) {
+					child.classList.add("gameover");
+					if (window.localStorage.getItem("sound") !== "false"){
+						const audio = new Audio("sounds/gameover.mp3");
+						audio.play();
+					}
+					isFinished = true;
+					
+					for (let i = 0; i < (rows * cols); i++){
+						if (document.getElementsByTagName('li')[i].className === ''){
+							const x1 = Math.floor(i/cols);
+							const y1 = i%cols;
+							if (initArray[x1][y1] === true){
+								document.getElementsByTagName('li')[i].className += "mine";
+							}
+						}
+					}
+				} else {
+					if (window.localStorage.getItem("sound") !== "false"){
+						const audio = new Audio("sounds/tick.mp3");
+						audio.play();
+					}
+					const mines = countMines(index);
+					const classMines = "neighbor-" + mines;
+					child.classList.add(classMines);
+				}
+					
+				
+				
+				
+			}
+			
+		});
+		
+		function countMines(num) {
+			const x = Math.floor(num/cols);
+			const y = num%cols;
+			console.log(num);
+			let amtMines = 0;
+			if (x > 0 && initArray[x-1][y]===true) {
+				amtMines++;
+			}
+			if (y > 0 && initArray[x][y-1]===true) {
+				amtMines++;
+			}
+			if (x < (rows - 1) && initArray[x+1][y]===true) {
+				amtMines++;
+			}
+			if (y < (cols - 1) && initArray[x][y+1]===true) {
+				amtMines++;
+			}
+			
+			if (x > 0 && y > 0 && initArray[x-1][y-1]===true) {
+				amtMines++;
+			}
+			if (y < (cols - 1) && x > 0 && initArray[x-1][y+1]===true) {
+				amtMines++;
+			}
+			if (x < (rows - 1) && y > 0 && initArray[x+1][y-1]===true) {
+				amtMines++;
+			}
+			if (x < (rows - 1) && y < (cols - 1) && initArray[x+1][y+1]===true) {
+				amtMines++;
+			}
+			
+			return amtMines;
+		}
+	</script>
+	
+		
+		
+	
+  </body>
+</html>
