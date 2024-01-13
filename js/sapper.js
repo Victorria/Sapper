@@ -1,6 +1,6 @@
-const rows=3;
+const rows=10;
 const cols=10;
-const minesPer=0.1;
+
 let showArray;
 let initArray;
 let isFinished;
@@ -27,9 +27,9 @@ function restart() {
 	}
 
 	let count=0;
-	while(count<rows*cols*minesPer){
-		let x=Math.floor(Math.random()*rows);
-		let y=Math.floor(Math.random()*cols);
+	while(count<23){
+		let x=Math.floor(Math.random()*10);
+		let y=Math.floor(Math.random()*10);
 		
 		if(!initArray[x][y]){
 			initArray[x][y]=true;

@@ -1,13 +1,4 @@
 
-body {
-	font-family: 'Caesar Dressing';
-}
-
-.wrapper {
-	margin: 0 auto;
-    width: 260px;
-    overflow: hidden;
-}
 
 .minefield ul li{
 	width: 24px;
@@ -25,11 +16,10 @@ body {
  }
  
  .minefield ul {
-	 /*margin: 0 auto;*/
+	 margin: 0 auto;
 	 padding: 0;
-	 margin: 0;
 	 overflow: hidden;
-	 /*width: 260px;*/
+	 width: 256px;
  }
  .minefield ul li.neighbor-0 {
 	 background-image: url(../img/0.png);
@@ -75,10 +65,6 @@ body {
 	 background-image: url(../img/b.png);
  }
  
- .minefield ul li.flagged {
-	 background-image: url(../img/f.png);
- }
- 
  
  
  .menu input{
@@ -90,8 +76,8 @@ body {
  }
  
  .menu {
-	 /*margin: 0 auto;*/
-	 /*width: 256px;*/
+	 margin: 0 auto;
+	 width: 256px;
 	 height: 50px;
 	 background-color: red;
 	 display: flex;
@@ -100,10 +86,6 @@ body {
  
  .settings {
 	 border: solid 1px green;
- }
- 
- #info {
-	border: solid 1px pink;
  }
  
  
