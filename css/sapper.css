@@ -1,91 +1,335 @@
 
+body {
+    font-family: 'Caesar Dressing';
+}
 
-.minefield ul li{
-	width: 24px;
-	height: 24px;
-	display: block;
-	background-image: url(../img/closed.png);
-	float: left;
-	border: solid 1px #777;
- }
- 
- .minefield {
-	border: 1px solid blue;
-	padding: 40px;
-	overflow: hidden;
- }
- 
- .minefield ul {
-	 margin: 0 auto;
-	 padding: 0;
-	 overflow: hidden;
-	 width: 256px;
- }
- .minefield ul li.neighbor-0 {
-	 background-image: url(../img/0.png);
- }
- 
- .minefield ul li.neighbor-1 {
-	 background-image: url(../img/1.png);
- }
- 
- .minefield ul li.neighbor-2 {
-	 background-image: url(../img/2.png);
- }
- 
- .minefield ul li.neighbor-3 {
-	 background-image: url(../img/3.png);
- }
- 
- .minefield ul li.neighbor-4 {
-	 background-image: url(../img/4.png);
- }
- 
- .minefield ul li.neighbor-5 {
-	 background-image: url(../img/5.png);
- }
- 
- .minefield ul li.neighbor-6 {
-	 background-image: url(../img/6.png);
- }
- 
- .minefield ul li.neighbor-7 {
-	 background-image: url(../img/7.png);
- }
- 
- .minefield ul li.neighbor-8 {
-	 background-image: url(../img/8.png);
- }
- 
- .minefield ul li.gameover {
-	 background-image: url(../img/end.png);
- }
- 
- .minefield ul li.mine {
-	 background-image: url(../img/b.png);
- }
- 
- 
- 
- .menu input{
-	 margin: 0 auto;
-	 display:block;
-	 text-align: center;
-	 height: 30px;
-	 border: solid 2px #777;
- }
- 
- .menu {
-	 margin: 0 auto;
-	 width: 256px;
-	 height: 50px;
-	 background-color: red;
-	 display: flex;
-	 align-items: center;
- }
- 
- .settings {
-	 border: solid 1px green;
- }
- 
- 
+.outer {
+    overflow: hidden;
+}
+
+.wrapper {
+    margin: 0 auto;
+    width: 78px;
+    overflow: hidden;
+    padding-top: 60px;
+}
+
+.minefield {
+    overflow: hidden;
+    position: relative;
+}
+
+.minefield ul {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.minefield ul li {
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-image: url(../img/closed.png);
+    float: left;
+    border: solid 1px #777;
+}
+
+.minefield ul li.neighbor-0 {
+    background-image: url(../img/0.png);
+}
+
+.minefield ul li.neighbor-1 {
+    background-image: url(../img/1.png);
+}
+
+.minefield ul li.neighbor-2 {
+    background-image: url(../img/2.png);
+}
+
+.minefield ul li.neighbor-3 {
+    background-image: url(../img/3.png);
+}
+
+.minefield ul li.neighbor-4 {
+    background-image: url(../img/4.png);
+}
+
+.minefield ul li.neighbor-5 {
+    background-image: url(../img/5.png);
+}
+
+.minefield ul li.neighbor-6 {
+    background-image: url(../img/6.png);
+}
+
+.minefield ul li.neighbor-7 {
+    background-image: url(../img/7.png);
+}
+
+.minefield ul li.neighbor-8 {
+    background-image: url(../img/8.png);
+}
+
+.minefield ul li.gameover {
+    background-image: url(../img/end.png);
+}
+
+.minefield ul li.mine {
+    background-image: url(../img/b.png);
+}
+
+.minefield ul li.flagged {
+    background-image: url(../img/f.png);
+}
+
+.menu {
+    padding: 5px;
+    background-color: #ccc;
+    align-items: center;
+}
+
+.menu input {
+    margin: 0 auto;
+    display: block;
+    border: solid 2px #777;
+}
+
+.top_menu {
+    overflow: hidden;
+}
+
+.top_menu > * {
+    float: left;
+}
+
+#leftOrRight {
+    width: 34px;
+    height: 28px;
+}
+
+.outer-sound {
+    font-size: 0.85em;
+}
+
+#leftOrRight {
+    background-image: url(../img/left-or-right.png);
+}
+
+#leftOrRight.checked {
+    background-image: url(../img/right-or-left.png);
+}
+
+#timer {
+    padding-bottom: 10px;
+    text-align: center;
+    width: calc(100% - 68px);
+}
+
+.section {
+    max-height: 30px;
+    overflow: hidden;
+    background-color: #ddd;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.section .head {
+    overflow: hidden;
+}
+
+.section .head a {
+    float: left;
+    color: #777;
+    padding-bottom: 10px;
+    text-decoration: none;
+}
+
+.section .head a:hover {
+    color: hotpink;
+}
+
+.section .head a h1 {
+	margin-top: 0;
+    margin-bottom: 0;
+}
+
+.section.expanded {
+    max-height: none;
+}
+
+.plus {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    float: right;
+    border: 3px solid #000;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.section.expanded .plus {
+    max-height: none;
+}
+
+.section .plus:before, .section .plus:after {
+    background: #000;
+    content: '';
+    height: 5px;
+    left: 1px;
+    position: absolute;
+    top: 10px;
+    width: 22px;
+    transition: transform 500ms ease;
+}
+
+.section .plus:after {
+    transform-origin: center;
+}
+
+.section.collapsed .plus:after {
+    transform: rotate(90deg);
+}
+
+.section.collapsed .plus:before {
+    transform: rotate(180deg);
+}
+
+#gameover {
+    position: absolute;
+    top: 120px;
+    left: calc(50% - 174px);
+    display: none;
+}
+
+#gameover.show {
+    display: block;
+}
+
+#gameover span {
+    color: #000;
+    font-family: 'Caesar Dressing';
+    font-size: 3em;
+    text-transform: lowercase;
+    letter-spacing: .2em;
+}
+
+.fire {
+    animation: animation 1s ease-in-out infinite alternate;
+    -moz-animation: animation 1s ease-in-out infinite alternate;
+    -webkit-animation: animation 1s ease-in-out infinite alternate;
+    -o-animation: animation 1s ease-in-out infinite alternate;
+}
+
+.burn {
+    animation: animation .65s ease-in-out infinite alternate;
+    -moz-animation: animation .65s ease-in-out infinite alternate;
+    -webkit-animation: animation .65s ease-in-out infinite alternate;
+    -o-animation: animation .65s ease-in-out infinite alternate;
+}
+
+@keyframes animation {
+    0% {
+        text-shadow: 0 0 20px red,
+        10px -10px 30px green,
+        -20px -20px 40px blue,
+        20px -40px 50px yellow,
+        -20px -60px 60px #cd4606,
+        0 -80px 70px #973716,
+        10px -90px 80px #451b0e;
+    }
+    100% {
+        text-shadow: 0 0 20px #fefcc9,
+        10px -10px 30px #fefcc9,
+        -20px -20px 40px #feec85,
+        22px -42px 60px #ffae34,
+        -22px -58px 50px #ec760c,
+        0 -82px 80px #cd4606,
+        10px -90px 80px #973716;
+    }
+}
+
+@-moz-keyframes animation {
+    0% {
+        text-shadow: 0 0 20px red,
+        10px -10px 30px green,
+        -20px -20px 40px blue,
+        20px -40px 50px yellow,
+        -20px -60px 60px #cd4606,
+        0 -80px 70px #973716,
+        10px -90px 80px #451b0e;
+    }
+    100% {
+        text-shadow: 0 0 20px #fefcc9,
+        10px -10px 30px #fefcc9,
+        -20px -20px 40px #feec85,
+        22px -42px 60px #ffae34,
+        -22px -58px 50px #ec760c,
+        0 -82px 80px #cd4606,
+        10px -90px 80px #973716;
+    }
+}
+
+@-webkit-keyframes animation {
+    0% {
+        text-shadow: 0 0 20px red,
+        10px -10px 30px green,
+        -20px -20px 40px blue,
+        20px -40px 50px yellow,
+        -20px -60px 60px #cd4606,
+        0 -80px 70px #973716,
+        10px -90px 80px #451b0e;
+    }
+    100% {
+        text-shadow: 0 0 20px #fefcc9,
+        10px -10px 30px #fefcc9,
+        -20px -20px 40px #feec85,
+        22px -42px 60px #ffae34,
+        -22px -58px 50px #ec760c,
+        0 -82px 80px #cd4606,
+        10px -90px 80px #973716;
+    }
+}
+
+@-o-keyframes animation {
+    0% {
+        text-shadow: 0 0 20px red,
+        10px -10px 30px green,
+        -20px -20px 40px blue,
+        20px -40px 50px yellow,
+        -20px -60px 60px #cd4606,
+        0 -80px 70px #973716,
+        10px -90px 80px #451b0e;
+    }
+    100% {
+        text-shadow: 0 0 20px #fefcc9,
+        10px -10px 30px #fefcc9,
+        -20px -20px 40px #feec85,
+        22px -42px 60px #ffae34,
+        -22px -58px 50px #ec760c,
+        0 -82px 80px #cd4606,
+        10px -90px 80px #973716;
+    }
+}
+
+
+@media screen and (min-width: 992px) {
+    .minefield {
+        float: left;
+        width: 70%;
+    }
+
+    #info {
+        float: left;
+        width: 30%;
+    }
+
+    #gameover {
+        position: absolute;
+        top: 120px;
+        left: calc(50% - 284px);
+    }
+
+    #gameover span {
+        font-size: 5em;
+    }
+}

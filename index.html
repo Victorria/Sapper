@@ -1,119 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Index</title>
+    <title>Sapper</title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/sapper.css">
-	
-  </head>
-  <body>
-	
-	<div class="minefield">
-		<div class="menu">
-		<input type="button" value="Restart" onclick="restart()">
-		</div>
-		<ul id="desk">
-		</ul>
-		<div class="settings">
-			<label><input id="sound" type="checkbox" value="value" checked>Sound: On
-			</label>
-		</div>
-		<script type='text/javascript' src='js/sapper.js'></script>
-		<script>
-			const checkbox = document.getElementById('sound');
-			checkbox.addEventListener('change', (event) => {
-				if (event.currentTarget.checked) {
-					window.localStorage.setItem("sound", true);				
-				} else {
-					window.localStorage.setItem("sound", false);
-				}
-			})
-			document.addEventListener('click',e => {
-				console.log('clicked2233');
-				console.log(e);
-				if (e.target.tagName == 'LI' && isFinished === false){
-					const child = e.target;
-					const parent = child.parentNode;
-					const index = Array.prototype.indexOf.call(parent.children,child);
-					console.log(index);
-					
-					
-					const x = Math.floor(index/10);
-					const y = index%10;
-					if (initArray[x][y]===true) {
-						child.classList.add("gameover");
-						if (window.localStorage.getItem("sound") !== "false"){
-							const audio = new Audio("sounds/gameover.mp3");
-							audio.play();
-						}
-						isFinished = true;
-						
-						for (let i = 0; i < 100; i++){
-							if (document.getElementsByTagName('li')[i].className === ''){
-								const x1 = Math.floor(i/10);
-								const y1 = i%10;
-								if (initArray[x1][y1] === true){
-									document.getElementsByTagName('li')[i].className += "mine";
-								}
-							}
-						}
-					} else {
-						if (window.localStorage.getItem("sound") !== "false"){
-							const audio = new Audio("sounds/tick.mp3");
-							audio.play();
-						}
-						const mines = countMines(index);
-						const classMines = "neighbor-" + mines;
-						child.classList.add(classMines);
-					}
-						
-					
-					
-					
-				}
-				
-			});
-			
-			function countMines(num) {
-				const x = Math.floor(num/10);
-				const y = num%10;
-				console.log(num);
-				let amtMines = 0;
-				if (x > 0 && initArray[x-1][y]===true) {
-					amtMines++;
-				}
-				if (y > 0 && initArray[x][y-1]===true) {
-					amtMines++;
-				}
-				if (x < 9 && initArray[x+1][y]===true) {
-					amtMines++;
-				}
-				if (y < 9 && initArray[x][y+1]===true) {
-					amtMines++;
-				}
-				
-				if (x > 0 && y > 0 && initArray[x-1][y-1]===true) {
-					amtMines++;
-				}
-				if (y < 9 && x > 0 && initArray[x-1][y+1]===true) {
-					amtMines++;
-				}
-				if (x < 9 && y > 0 && initArray[x+1][y-1]===true) {
-					amtMines++;
-				}
-				if (x < 9 && y < 9 && initArray[x+1][y+1]===true) {
-					amtMines++;
-				}
-				
-				return amtMines;
-			}
-		</script>
-		
-		
-		
-	</div>
-  </body>
+    <link href='https://fonts.googleapis.com/css?family=Caesar+Dressing' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div class="outer">
+    <div class="minefield">
+        <div id="gameover">
+            <span class="fire">g</span>
+            <span class="burn">a</span>
+            <span class="burn">m</span>
+            <span class="fire">e</span>
+            <span class="fire">&nbsp;</span>
+            <span class="burn">o</span>
+            <span class="burn">v</span>
+            <span class="fire">e</span>
+            <span class="fire">r</span>
+        </div>
+        <div class="wrapper">
+            <div class="menu">
+                <div class="top_menu">
+                    <button id="leftOrRight" onclick="toggleLeftOrRight()">
+                    </button>
+                    <div id="timer">
+                    </div>
+                    <label class="outer-sound"><input id="sound" type="checkbox" value="value">Sound
+                    </label>
+                </div>
+                <input id="start" type="button" value="Start" onclick="restart()">
+            </div>
+            <ul id="desk">
+            </ul>
+        </div>
+    </div>
+    <div id="info">
+        <div class="section expanded" id="scores">
+            <div class="head">
+                <a href="#scores"><h1>High Scores</h1></a>
+                <div class="plus" onclick="expandSection(this)"></div>
+            </div>
+            <h2>Experts:</h2>
+            <ul id="experts">
+            </ul>
+            <h2>Advanced users:</h2>
+            <ul id="advanced">
+            </ul>
+            <h2>Beginners:</h2>
+            <ul id="beginners">
+            </ul>
+        </div>
+        <div class="section expanded" id="settings">
+            <div class="head">
+                <a href="#settings"><h1>Settings</h1></a>
+                <div class="plus" onclick="expandSection(this)"></div>
+            </div>
+            <label for="level">Level: </label>
+            <input type="radio" name="level" value="0">Beginner</input>
+            <input type="radio" name="level" value="1">Advanced</input>
+            <input type="radio" name="level" value="2">Expert</input>
+        </div>
+        <div class="section expanded" id="rules">
+            <div class="head">
+                <a href="#rules"><h1>Rules</h1></a>
+                <div class="plus" onclick="expandSection(this)"></div>
+            </div>
+            <h2>Game: Sapper</h2>
+
+            <p>The objective of Sapper is to uncover all the tiles on a grid without detonating any hidden mines.</p>
+
+            <p>To play, you can use a mouse (left and right buttons), a keyboard (Enter, and "m" keys; Tab or Shift +
+                Tab), or a touch screen device.</p>
+
+            <h3>Equipment:</h3>
+
+            <ul>
+                <li>A grid of tiles, initially covered.</li>
+                <li>Mines hidden beneath some of the tiles.</li>
+            </ul>
+
+            <h3>Icons:</h3>
+            <img src="img/closed.png"> - a closed tile<br>
+            <img src="img/0.png"> - no mines in the neighbor tiles<br>
+            <img src="img/1.png"> - exactly 1 mine in the neighbor tiles<br>
+            <img src="img/2.png"> - exactly 2 mines in the neighbor tiles<br>
+            <img src="img/3.png"> - exactly 3 mines in the neighbor tiles<br>
+            <img src="img/4.png"> - exactly 4 mines in the neighbor tiles<br>
+            <img src="img/5.png"> - exactly 5 mines in the neighbor tiles<br>
+            <img src="img/6.png"> - exactly 6 mines in the neighbor tiles<br>
+            <img src="img/7.png"> - exactly 7 mines in the neighbor tiles<br>
+            <img src="img/8.png"> - exactly 8 mines in the neighbor tiles<br>
+
+            <h3>Buttons:</h3>
+            <img src="img/left-or-right.png"> or <img src="img/right-or-left.png"> - the buttons that toggle the
+            functions of the left and right mouse buttons<br>
+
+            <h3>Gameplay:</h3>
+
+            A player can perform one of two actions:<br>
+            a) Uncover a tile: Choose a covered tile to reveal its content.<br>
+            b) Flag a tile: If a player suspects a tile contains a mine, they can flag it with another mouse button as
+            <img src="img/f.png">.<br>
+            If a player uncovers a tile with a mine, the game ends, and they lose.<br>
+            If a player uncovers a tile without a mine, the tile will display a number indicating the number of neighbor 
+            tiles that contain mines.<br>
+            If a player uncovers a tile with a number, they can use that information to deduce the location of nearby
+            mines.<br>
+            <br><br>
+			<h3>Game is finished when:</h3>
+            a) All tiles except the ones containing mines are uncovered: The player wins.<br>
+            b) A player uncovers a tile with a mine: The player loses.<br>
+            Flagging Tiles:<br>
+            Players can flag a tile if they believe it contains a mine.<br>
+            Flagged tiles cannot be uncovered unless the player removes the flag.<br>
+
+            Additional Gameplay Option:<br>
+            Players can choose to start a new game with a different grid size.
+        </div>
+    </div>
+</div>
+<script src="https://fe.it-academy.by/JQ/jquery.js"></script>
+<script type='text/javascript' src='js/sapper.js'></script>
+</body>
 </html>
